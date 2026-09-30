@@ -1,1 +1,74 @@
+name: Extract zip and deploy website
 
+on:
+  push:
+    branches: [main, master]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # هر فایل zip در مخزن را باز می‌کند. اگر داخل زیپ یک پوشه‌ی بیرونی باشد
+      # (مثل persian-font-web/)، محتویاتش را مستقیم در ریشه می‌گذارد.
+      - name: Extract zip files (if any)
+        run: |
+          find . -name "*.zip" -type f -not -path "./.git/*" | while read -r z; do
+            echo "Extracting $z ..."
+            tmp=$(mktemp -d)
+            unzip -q -o "$z" -d "$tmp"
+            rm -rf "$tmp/__MACOSX"
+            if [ "$(find "$tmp" -mindepth 1 -maxdepth 1 | wc -l)" -eq 1 ] && [ -d "$(find "$tmp" -mindepth 1 -maxdepth 1)" ]; then
+              src="$(find "$tmp" -mindepth 1 -maxdepth 1)"
+            else
+              src="$tmp"
+            fi
+            cp -a "$src"/. "$(dirname "$z")"/
+            rm -f "$z"
+            rm -rf "$tmp"
+          done
+
+      - name: Commit extracted files
+        run: |
+          git config user.email "action@github.com"
+          git config user.name "GitHub Action"
+          git add -A
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Extract zip archive"
+            git push
+          fi
+
+      - name: Prepare site
+        run: |
+          test -f index.html || { echo "index.html در ریشه‌ی مخزن پیدا نشد"; exit 1; }
+          mkdir _site
+          rsync -a --exclude='.git/' --exclude='.github/' --exclude='_site/' ./ _site/
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
