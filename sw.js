@@ -1,7 +1,25 @@
-/* آفلاین‌سازی: فایل‌های برنامه + همه‌ی فونت‌های fonts/fonts.json کش می‌شوند. اول شبکه، بعد کش. */
-const C='pfk-v2',FILES=["./","index.html","manifest.json","css/style.css","icons/icon-192.png","icons/icon-512.png","fonts/fonts.json","js/custom-keyboard-view.js","js/export-utils.js","js/font-manager.js","js/font-name-reader.js","js/font-unicode-reader.js","js/image-text-editor.js","js/main.js","js/saved-files.js","js/theme-manager.js","js/unicode-scripts.js","js/utils.js"];
-self.addEventListener('install',e=>{e.waitUntil(caches.open(C).then(async c=>{await c.addAll(FILES);
-try{const a=await (await fetch('fonts/fonts.json')).json();await c.addAll(a.map(f=>'fonts/'+encodeURIComponent(f)))}catch(x){}}));self.skipWaiting()});
-self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(k=>Promise.all(k.filter(x=>x!==C).map(x=>caches.delete(x)))).then(()=>self.clients.claim()))});
-self.addEventListener('fetch',e=>{if(e.request.method!=='GET')return;
-e.respondWith(fetch(e.request).then(r=>{const cp=r.clone();caches.open(C).then(c=>c.put(e.request,cp));return r}).catch(()=>caches.match(e.request).then(m=>m||caches.match('index.html'))))});
+/* معادل FontManager.kt — فونت‌ها از پوشه‌ی fonts/
+(لیست در fonts/fonts.json)؛
+   هیچ اسمی هاردکد نیست و اولین فونت لیست (بعد از مرتب‌سازی)، پیش‌فرض است.
+   + تشخیص خطا: اگر fonts.json خوانده نشود، علت دقیق در FontManager.lastError ذخیره می‌شود. */
+
+var FontManager={list:[],family:null,n:0,lastError:null,
+displayName:function(f){return String(f).replace(/\.[^.]+$/,'')},
+listAvailableFonts:async function(){var a=[],me=this;this.lastError=null;
+try{var r=await fetch('fonts/fonts.json',{cache:'no-store'});
+if(!r.ok)throw new Error('HTTP '+r.status);
+a=JSON.parse((await r.text()).replace(/^\uFEFF/,''));
+if(!Array.isArray(a))a=(a&&(a.fonts||a.list))||[]}
+catch(e){this.lastError=(e&&e.message)||String(e);a=[]}
+this.list=a.filter(function(f){return /\.(ttf|otf|ttc)$/i.test(String(f))}).sort(function(x,y){return me.displayName(x).toLowerCase().localeCompare(me.displayName(y).toLowerCase())});return this.list},
+getSelected:function(){return this.list.indexOf(st.font)>=0?st.font:(this.list[0]||null)},
+load:async function(file){var r=await fetch('fonts/'+encodeURIComponent(file));
+if(!r.ok)throw new Error('HTTP '+r.status+' — fonts/'+file);
+var bytes=await r.arrayBuffer(),fam='AppFont'+(++this.n),ffc=new FontFace(fam,bytes);
+await ffc.load();document.fonts.add(ffc);this.family=fam;document.documentElement.style.setProperty('--app-font',"'"+fam+"'");
+return{scripts:UnicodeScripts.buildScripts(FontUnicodeReader.getSupportedCodePoints(bytes)),name:FontNameReader.readFamilyName(bytes)||this.displayName(file)}},
+showPicker:function(onSel){var me=this;
+if(!me.list.length)return alert('هیچ فونتی در پوشه‌ی fonts پیدا نشد'+(me.lastError?('\nعلت: '+me.lastError):''));
+openDialog('انتخاب فونت',function(b,close){me.list.forEach(function(f){
+b.appendChild(mk((f===me.getSelected()?'✓ ':'')+me.displayName(f),'it',function(){close();onSel(f)}))})})}};
+function ff(){return "'"+(FontManager.family||'Tahoma')+"',Tahoma,sans-serif"}
