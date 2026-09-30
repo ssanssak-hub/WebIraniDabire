@@ -8,7 +8,7 @@ r.appendChild(mk('◀ خط','k c',function(){me.go(-1)}));r.appendChild(mk('خط
 r.appendChild(mk('فاصله','k c',function(){L.onCharacter(' ')}));
 r.appendChild(mk('⏎','k c',function(){L.onEnter()},'خط جدید'));
 r.appendChild(mk('⌫','k c',function(){L.onBackspace()},'حذف'));
-r.appendChild(mk('اپلیکیشن','k c',function(){window.open('https://github.com/ssanssak-hub/Ancient-Iranian-script-download-','_blank')},'دانلود اپلیکیشن'));fr.appendChild(r);
+r.appendChild(mk('نسخه‌اپلیکیشن','k c',function(){window.open('https://github.com/ssanssak-hub/Ancient-Iranian-script-download-','_blank')},'دانلود اپلیکیشن'));fr.appendChild(r);
 kb.innerHTML='';if(!S.length){$('lab').textContent='';kb.appendChild(fr);return}
 var g=S[me.cur];$('lab').textContent='خط: '+g.name+'  ('+(me.cur+1)+'/'+S.length+')';L.onScriptChanged(g.name,me.cur,S.length);
 var cp=g.codePoints;
