@@ -8,20 +8,21 @@ CustomKeyboardView.listener={onCharacter:put,onEnter:function(){put('\n')},
 onBackspace:function(){var a=Array.from(st.txt);a.pop();setText(a.join(''))},
 onScriptChanged:function(n){st.script=n;save()}};
 async function useFont(file){try{var r=await FontManager.load(file);st.font=file;save();$('fnt').textContent=FontManager.displayName(file);CustomKeyboardView.setScripts(r.scripts,st.script)}
-catch(e){$('lab').textContent='خواندن فونت ناموفق بود'}}
+catch(e){$('lab').textContent='خواندن فونت ناموفق بود: '+((e&&e.message)||e)}}
 function tab(i){[0,1,2].forEach(function(j){$('s'+j).hidden=j!=i;$('tb'+j).classList.toggle('on',j==i)});if(i==1)edraw();if(i==2)dlist()}
 [0,1,2].forEach(function(j){$('tb'+j).onclick=function(){tab(j)}});
-$('un').onclick=function(){undo(-1)};$('re').onclick=function(){undo(1)};
-$('clr').onclick=function(){var b=this;if(!cf){cf=1;b.textContent='مطمئنی؟ دوباره بزن';setTimeout(function(){cf=0;b.textContent='پاک کردن'},3000)}else{cf=0;b.textContent='پاک کردن';setText('')}};
-$('sz').oninput=function(e){st.size=Math.round(e.target.value);show();save()};
-$('tc').oninput=function(e){st.tc=e.target.value;show();save()};
-$('bc').oninput=function(e){st.bc=e.target.value;show();save()};
-$('bf').onclick=function(){FontManager.showPicker(useFont)};$('bt').onclick=function(){ThemeManager.showPicker()};
-$('dlgx').onclick=function(){$('dlg').close()};
+ $('un').onclick=function(){undo(-1)};$('re').onclick=function(){undo(1)};
+ $('clr').onclick=function(){var b=this;if(!cf){cf=1;b.textContent='مطمئنی؟ دوباره بزن';setTimeout(function(){cf=0;b.textContent='پاک کردن'},3000)}else{cf=0;b.textContent='پاک کردن';setText('')}};
+ $('sz').oninput=function(e){st.size=Math.round(e.target.value);show();save()};
+ $('tc').oninput=function(e){st.tc=e.target.value;show();save()};
+ $('bc').oninput=function(e){st.bc=e.target.value;show();save()};
+ $('bf').onclick=function(){FontManager.showPicker(useFont)};$('bt').onclick=function(){ThemeManager.showPicker()};
+ $('dlgx').onclick=function(){$('dlg').close()};
 window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();dp=e;$('inst').hidden=false});
-$('inst').onclick=function(){if(dp){dp.prompt();dp=null;this.hidden=true}};
+ $('inst').onclick=function(){if(dp){dp.prompt();dp=null;this.hidden=true}};
 window.addEventListener('appinstalled',function(){$('inst').hidden=true});
 if('serviceWorker' in navigator&&/^https?:$/.test(location.protocol))navigator.serviceWorker.register('sw.js').catch(function(){});
-(async function(){show();ThemeManager.apply();tab(0);
+(async function(){try{show();ThemeManager.apply();tab(0);
 await FontManager.listAvailableFonts();var f=FontManager.getSelected();
-if(f)await useFont(f);else $('lab').textContent='هیچ فونتی در پوشه‌ی fonts پیدا نشد'})();
+if(f)await useFont(f);else $('lab').textContent='هیچ فونتی در پوشه‌ی fonts پیدا نشد'}
+catch(e){var m='خطای راه‌اندازی: '+((e&&e.message)||e);try{$('lab').textContent=m}catch(x){}alert(m)}})();
