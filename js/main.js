@@ -1,3 +1,7 @@
+/* گزارش خطاهای سراسری — هر کرشی رخ بدهد، عیناً نمایش داده می‌شود */
+window.addEventListener('error',function(e){try{alert('خطا: '+(e.message||'?')+'\nفایل: '+String(e.filename||'').split('/').pop()+':'+e.lineno)}catch(x){}});
+window.addEventListener('unhandledrejection',function(e){try{var r=e.reason;alert('خطای ناهمگام: '+((r&&r.message)||r))}catch(x){}});
+
 /* معادل MainActivity.kt — اتصال همه‌ی بخش‌ها */
 var t=$('t'),hist=[st.txt],hi=0,cf=0,dp=null;
 function show(){t.textContent=st.txt;t.style.fontSize=st.size+'px';t.style.color=st.tc;t.style.background=st.bc;$('sz').value=st.size;$('szo').textContent=st.size;$('tc').value=st.tc;$('bc').value=st.bc}
