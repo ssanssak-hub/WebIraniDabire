@@ -1,49 +1,58 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#2E3A59">
-<link rel="manifest" href="manifest.json">
-<link rel="apple-touch-icon" href="icons/icon-192.png">
-<link rel="stylesheet" href="css/style.css">
-<title> دبیره ایرانی نسخه وب </title>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-HZRCYB5Q6B"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-HZRCYB5Q6B');
+  </script>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#2E3A59">
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="stylesheet" href="css/style.css">
+  <title> دبیره ایرانی نسخه وب </title>
 </head>
 <body>
-<div id="app">
-<div class="hd"><h1> دبیره ایرانی نسخه وب </h1><button id="bf">فونت: <span id="fnt">…</span></button><button id="bt">تم</button></div>
-<div class="tabs"><button id="tb0">نوشتن</button><button id="tb1">روی عکس</button><button id="tb2">پیش‌نویس‌ها</button></div>
-<div id="s0">
-<div id="t"></div>
-<div class="tb"><button id="un">Undo</button><button id="re">Redo</button><button id="clr">پاک کردن</button></div>
-<div class="ctl"><span>اندازه</span><input id="sz" type="range" min="14" max="44"><span id="szo"></span><span>متن</span><input id="tc" type="color"><span>زمینه</span><input id="bc" type="color"></div>
-<div id="lab"></div><div id="kb"></div>
-<div class="tb" style="margin-top:12px"><button id="xp">عکس PNG</button><button id="xd">PDF</button><button id="xt">فایل TXT</button><button id="xc">کپی متن</button></div>
-<div class="tb"><button id="inst" hidden>نصب روی دستگاه</button></div>
-</div>
-<div id="s1" hidden>
-<p class="h">یک عکس انتخاب کن؛ متنی که در تب «نوشتن» ساخته‌ای روی آن می‌آید. با کشیدن روی عکس، جای متن را عوض کن.</p>
-<input id="up" type="file" accept="image/*">
-<div class="ctl"><span>اندازه متن</span><input id="es" type="range" min="20" max="120" value="60"></div>
-<canvas id="cv" width="600" height="300"></canvas>
-<div class="tb"><button id="ed">ذخیره عکس PNG</button></div>
-</div>
-<div id="s2" hidden>
-<div class="tb"><button id="ds">ذخیره متن فعلی در پیش‌نویس‌ها</button></div>
-<div id="dlst"></div>
-</div>
-</div>
-<dialog id="dlg"><div id="dlgt"></div><div id="dlgb"></div><button class="it" id="dlgx">بستن</button></dialog>
-<script src="js/utils.js"></script>
-<script src="js/unicode-scripts.js"></script>
-<script src="js/font-unicode-reader.js"></script>
-<script src="js/font-name-reader.js"></script>
-<script src="js/font-manager.js"></script>
-<script src="js/theme-manager.js"></script>
-<script src="js/custom-keyboard-view.js"></script>
-<script src="js/export-utils.js"></script>
-<script src="js/image-text-editor.js"></script>
-<script src="js/saved-files.js"></script>
-<script src="js/main.js"></script>
+  <div id="app">
+    <div class="hd"><h1> دبیره ایرانی نسخه وب </h1><button id="bf">فونت: <span id="fnt">…</span></button><button id="bt">تم</button></div>
+    <div class="tabs"><button id="tb0">نوشتن</button><button id="tb1">روی عکس</button><button id="tb2">پیش‌نویس‌ها</button></div>
+    <div id="s0">
+      <div id="t"></div>
+      <div class="tb"><button id="un">Undo</button><button id="re">Redo</button><button id="clr">پاک کردن</button></div>
+      <div class="ctl"><span>اندازه</span><input id="sz" type="range" min="14" max="44"><span id="szo"></span><span>متن</span><input id="tc" type="color"><span>زمینه</span><input id="bc" type="color"></div>
+      <div id="lab"></div><div id="kb"></div>
+      <div class="tb" style="margin-top:12px"><button id="xp">عکس PNG</button><button id="xd">PDF</button><button id="xt">فایل TXT</button><button id="xc">کپی متن</button></div>
+      <div class="tb"><button id="inst" hidden>نصب روی دستگاه</button></div>
+    </div>
+    <div id="s1" hidden>
+      <p class="h">یک عکس انتخاب کن؛ متنی که در تب «نوشتن» ساخته‌ای روی آن می‌آید. با کشیدن روی عکس، جای متن را عوض کن.</p>
+      <input id="up" type="file" accept="image/*">
+      <div class="ctl"><span>اندازه متن</span><input id="es" type="range" min="20" max="120" value="60"></div>
+      <canvas id="cv" width="600" height="300"></canvas>
+      <div class="tb"><button id="ed">ذخیره عکس PNG</button></div>
+    </div>
+    <div id="s2" hidden>
+      <div class="tb"><button id="ds">ذخیره متن فعلی در پیش‌نویس‌ها</button></div>
+      <div id="dlst"></div>
+    </div>
+  </div>
+  <dialog id="dlg"><div id="dlgt"></div><div id="dlgb"></div><button class="it" id="dlgx">بستن</button></dialog>
+  <script src="js/utils.js"></script>
+  <script src="js/unicode-scripts.js"></script>
+  <script src="js/font-unicode-reader.js"></script>
+  <script src="js/font-name-reader.js"></script>
+  <script src="js/font-manager.js"></script>
+  <script src="js/theme-manager.js"></script>
+  <script src="js/custom-keyboard-view.js"></script>
+  <script src="js/export-utils.js"></script>
+  <script src="js/image-text-editor.js"></script>
+  <script src="js/saved-files.js"></script>
+  <script src="js/main.js"></script>
 </body>
 </html>
