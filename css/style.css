@@ -36,9 +36,9 @@ body {
   color: var(--fg);
   font-family: Tahoma, system-ui, sans-serif;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 0;
+  flex-direction: column; /* المان‌ها زیر هم */
+  align-items: center;    /* وسط‌چین */
+  padding: 0;             /* حذف پدینگ اضافه */
 }
 
 /* کانتینر اصلی اپلیکیشن */
