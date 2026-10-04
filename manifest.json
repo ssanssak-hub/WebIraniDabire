@@ -1,25 +1,41 @@
 {
- "name": "دبیره ایرانی نسخه وب",
- "short_name": "دبیره ایرانی",
- "start_url": "./",
- "scope": "./",
- "display": "standalone",
- "lang": "fa",
- "dir": "rtl",
- "background_color": "#F4F5F9",
- "theme_color": "#2E3A59",
- "icons": [
-  {
-   "src": "icons/icon-192.png",
-   "sizes": "192x192",
-   "type": "image/png",
-   "purpose": "any maskable"
-  },
-  {
-   "src": "icons/icon-512.png",
-   "sizes": "512x512",
-   "type": "image/png",
-   "purpose": "any maskable"
-  }
- ]
+  "name": "دبیره ایرانی",
+  "short_name": "دبیره ایرانی",
+  "description": "ابزار آنلاین و آفلاین برای تبدیل متن به دبیره‌های باستانی ایران زمین",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "lang": "fa",
+  "dir": "rtl",
+  "background_color": "#F4F5F9",
+  "theme_color": "#2E3A59",
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "تخته کلیدهای باستانی",
+      "short_name": "تخته کلیدها",
+      "description": "ورود مستقیم به ابزار نوشتن با دبیره‌های باستانی",
+      "url": "keyboard.html",
+      "icons": [
+        {
+          "src": "icons/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ]
 }
