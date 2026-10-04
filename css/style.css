@@ -1,51 +1,305 @@
-:root{box-sizing:border-box;--bg:#F4F5F9;--sf:#FFFFFF;--bar:#2E3A59;--ac:#1565C0;--acf:#fff;--fg:#1f1f1f;--line:color-mix(in srgb,var(--fg) 22%,transparent);--app-font:Tahoma;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-html{scroll-padding-top:env(safe-area-inset-top,0px)}
-*,*::before,*::after{box-sizing:inherit}
-[hidden]{display:none!important}
-body{margin:0;background:var(--bg);color:var(--fg);font-family:Tahoma,system-ui,sans-serif;display:flex;justify-content:center;padding:16px}
-#app{width:100%;max-width:460px}
-.hd{display:flex;align-items:center;gap:6px;margin-bottom:10px}.hd h1{flex:1;font-size:18px;font-weight:400;margin:0}.hd button{height:34px;padding:0 10px;font-size:13px}
-button{font-family:inherit;cursor:pointer;background:var(--sf);color:var(--fg);border:1px solid var(--line);border-radius:6px}
-.tabs{display:flex;gap:4px;margin-bottom:10px}.tabs button{flex:1;height:38px;font-size:14px}
-.tabs .on{background:var(--ac);color:var(--acf)}
-#t{min-height:110px;border:1px solid var(--line);border-radius:8px;padding:10px;font-family:var(--app-font),Tahoma,sans-serif;line-height:1.8;white-space:pre-wrap;word-break:break-word}
-.ctl{display:flex;align-items:center;gap:10px;margin:10px 0;font-size:14px}.ctl input[type=range]{flex:1}
-.ctl input[type=color]{width:38px;height:30px;padding:0;border:1px solid var(--line);background:none}
-.tb{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}.tb button{flex:1;min-width:72px;height:38px;font-size:13px}
-#lab{font-size:14px;margin:12px 0 6px;text-align:center}
-#kb{direction:ltr}.row{display:flex;gap:3px;margin-bottom:3px}
-.k{flex:1;min-width:0;height:44px;padding:0;font-family:var(--app-font),Tahoma,sans-serif;font-size:18px;overflow:hidden}
-.c{font-family:Tahoma,system-ui,sans-serif;font-size:11px}
-#cv{width:100%;height:auto;border:1px solid var(--line);border-radius:8px;touch-action:none;cursor:move;background:var(--sf)}
-.dr{display:flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:8px;padding:8px;margin-top:6px;font-size:13px}
-.dr span{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.dr button{height:32px;padding:0 10px}
-p.h{font-size:13px;opacity:.75;margin:6px 0}
-dialog{background:var(--bg);color:var(--fg);border:1px solid var(--line);border-radius:12px;width:min(92vw,420px);max-height:80vh;padding:14px}
-dialog::backdrop{background:rgba(0,0,0,.45)}#dlgt{font-size:16px;margin-bottom:6px}
-.it{display:flex;align-items:center;gap:8px;width:100%;height:44px;margin-top:6px;padding:0 10px;font-size:14px}
-.dot{width:14px;height:14px;border-radius:50%;border:1px solid var(--line)}
-:focus-visible{outline:2px solid #378ADD;outline-offset:2px}
+/* ═══════════════════════════════════════════════════════════
+   متغیرها و تنظیمات پایه
+   ═══════════════════════════════════════════════════════════ */
+:root {
+  box-sizing: border-box;
+  --bg: #F4F5F9;
+  --sf: #FFFFFF;
+  --bar: #2E3A59;
+  --ac: #1565C0;
+  --acf: #fff;
+  --fg: #1f1f1f;
+  --line: color-mix(in srgb, var(--fg) 22%, transparent);
+  --app-font: Tahoma;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
 
-/* استایل دکمه بازگشت به خانه در بالای اپلیکیشن */
-.nav-back {
+html {
+  scroll-padding-top: env(safe-area-inset-top, 0px);
+}
+
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   بدنه صفحه: هدر و اپلیکیشن زیر هم قرار می‌گیرند
+   ═══════════════════════════════════════════════════════════ */
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: Tahoma, system-ui, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0;
+}
+
+/* کانتینر اصلی اپلیکیشن */
+#app {
   width: 100%;
   max-width: 460px;
-  margin: 0 auto 4px;
-  text-align: right;
-  padding: 0 16px;
-  font-family: Tahoma, system-ui, sans-serif;
+  padding: 16px;
 }
-.nav-back a {
-  color: var(--ac);
-  text-decoration: none;
-  font-size: 14px;
-  font-weight: bold;
-  display: inline-flex;
+
+/* ═══════════════════════════════════════════════════════════
+   منوی اصلی سایت (هدر)
+   ═══════════════════════════════════════════════════════════ */
+.site-header {
+  background: var(--bar);
+  color: #fff;
+  padding: 10px 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+}
+
+.header-inner {
+  display: flex;
   align-items: center;
-  gap: 4px;
-  transition: opacity 0.2s;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 16px;
 }
-.nav-back a:hover {
-  opacity: 0.8;
-  text-decoration: underline;
-  }
+
+.logo {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #fff;
+  text-decoration: none;
+}
+
+.main-nav {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.main-nav a {
+  color: #cfd8e8;
+  text-decoration: none;
+  font-size: 0.9rem;
+  padding: 4px 10px;
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+
+.main-nav a:hover,
+.main-nav a.active {
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   استایل‌های اپلیکیشن (تخته کلیدهای باستانی)
+   ═══════════════════════════════════════════════════════════ */
+.hd {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.hd h1 {
+  flex: 1;
+  font-size: 18px;
+  font-weight: 400;
+  margin: 0;
+}
+
+.hd button {
+  height: 34px;
+  padding: 0 10px;
+  font-size: 13px;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  background: var(--sf);
+  color: var(--fg);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+}
+
+.tabs {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 10px;
+}
+
+.tabs button {
+  flex: 1;
+  height: 38px;
+  font-size: 14px;
+}
+
+.tabs .on {
+  background: var(--ac);
+  color: var(--acf);
+}
+
+#t {
+  min-height: 110px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 10px;
+  font-family: var(--app-font), Tahoma, sans-serif;
+  line-height: 1.8;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.ctl {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 10px 0;
+  font-size: 14px;
+}
+
+.ctl input[type=range] {
+  flex: 1;
+}
+
+.ctl input[type=color] {
+  width: 38px;
+  height: 30px;
+  padding: 0;
+  border: 1px solid var(--line);
+  background: none;
+}
+
+.tb {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 8px 0;
+}
+
+.tb button {
+  flex: 1;
+  min-width: 72px;
+  height: 38px;
+  font-size: 13px;
+}
+
+#lab {
+  font-size: 14px;
+  margin: 12px 0 6px;
+  text-align: center;
+}
+
+#kb {
+  direction: ltr;
+}
+
+.row {
+  display: flex;
+  gap: 3px;
+  margin-bottom: 3px;
+}
+
+.k {
+  flex: 1;
+  min-width: 0;
+  height: 44px;
+  padding: 0;
+  font-family: var(--app-font), Tahoma, sans-serif;
+  font-size: 18px;
+  overflow: hidden;
+}
+
+.c {
+  font-family: Tahoma, system-ui, sans-serif;
+  font-size: 11px;
+}
+
+#cv {
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  touch-action: none;
+  cursor: move;
+  background: var(--sf);
+}
+
+.dr {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 8px;
+  margin-top: 6px;
+  font-size: 13px;
+}
+
+.dr span {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dr button {
+  height: 32px;
+  padding: 0 10px;
+}
+
+p.h {
+  font-size: 13px;
+  opacity: .75;
+  margin: 6px 0;
+}
+
+dialog {
+  background: var(--bg);
+  color: var(--fg);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  width: min(92vw, 420px);
+  max-height: 80vh;
+  padding: 14px;
+}
+
+dialog::backdrop {
+  background: rgba(0, 0, 0, .45);
+}
+
+#dlgt {
+  font-size: 16px;
+  margin-bottom: 6px;
+}
+
+.it {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  height: 44px;
+  margin-top: 6px;
+  padding: 0 10px;
+  font-size: 14px;
+}
+
+.dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+}
+
+:focus-visible {
+  outline: 2px solid #378ADD;
+  outline-offset: 2px;
+}
