@@ -1,0 +1,177 @@
+/* استایل‌های پایه */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Tahoma, 'Segoe UI', Arial, sans-serif;
+  background-color: #f4f6fa;
+  color: #1e1e2f;
+  line-height: 1.6;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+/* هدر */
+.site-header {
+  background: #2E3A59;
+  color: #fff;
+  padding: 12px 0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #fff;
+  text-decoration: none;
+}
+
+.main-nav {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.main-nav a {
+  color: #cfd8e8;
+  text-decoration: none;
+  font-size: 0.95rem;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+
+.main-nav a:hover,
+.main-nav a.active {
+  background: rgba(255,255,255,0.15);
+  color: #fff;
+}
+
+/* هیرو */
+.hero {
+  text-align: center;
+  padding: 60px 0 40px;
+}
+
+.hero h1 {
+  font-size: 2rem;
+  margin-bottom: 16px;
+  color: #2E3A59;
+}
+
+.hero p {
+  font-size: 1.1rem;
+  color: #4a5568;
+  margin-bottom: 24px;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn {
+  display: inline-block;
+  padding: 10px 24px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background 0.2s, transform 0.1s;
+}
+
+.btn.primary {
+  background: #2E3A59;
+  color: #fff;
+}
+
+.btn.primary:hover {
+  background: #1f2840;
+  transform: translateY(-2px);
+}
+
+.btn.secondary {
+  background: #e2e8f0;
+  color: #2E3A59;
+}
+
+.btn.secondary:hover {
+  background: #cbd5e0;
+  transform: translateY(-2px);
+}
+
+/* کارت‌ها */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  margin: 40px 0 60px;
+}
+
+.card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  transition: box-shadow 0.2s;
+}
+
+.card:hover {
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+}
+
+.card h2 {
+  font-size: 1.25rem;
+  margin-bottom: 12px;
+  color: #2E3A59;
+}
+
+.card p {
+  color: #4a5568;
+  margin-bottom: 16px;
+}
+
+.card-link {
+  color: #2E3A59;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.card-link:hover {
+  text-decoration: underline;
+}
+
+/* فوتر */
+.site-footer {
+  background: #2E3A59;
+  color: #cfd8e8;
+  text-align: center;
+  padding: 16px 0;
+  font-size: 0.9rem;
+}
+
+/* ریسپانسیو */
+@media (max-width: 600px) {
+  .header-inner {
+    flex-direction: column;
+    gap: 8px;
+  }
+  .hero h1 {
+    font-size: 1.5rem;
+  }
+}
