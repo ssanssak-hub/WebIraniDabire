@@ -16,11 +16,16 @@
   <link rel="manifest" href="manifest.json">
   <link rel="apple-touch-icon" href="icons/icon-192.png">
   <link rel="stylesheet" href="css/style.css">
-  <title> دبیره ایرانی نسخه وب </title>
+  <title>تخته کلیدهای باستانی | دبیره ایرانی</title>
 </head>
 <body>
+  <!-- دکمه بازگشت به صفحه اصلی -->
+  <div class="nav-back">
+    <a href="index.html">← بازگشت به خانه</a>
+  </div>
+
   <div id="app">
-    <div class="hd"><h1> دبیره ایرانی نسخه وب </h1><button id="bf">فونت: <span id="fnt">…</span></button><button id="bt">تم</button></div>
+    <div class="hd"><h1>تخته کلیدهای باستانی</h1><button id="bf">فونت: <span id="fnt">…</span></button><button id="bt">تم</button></div>
     <div class="tabs"><button id="tb0">نوشتن</button><button id="tb1">روی عکس</button><button id="tb2">پیش‌نویس‌ها</button></div>
     <div id="s0">
       <div id="t"></div>
@@ -42,7 +47,9 @@
       <div id="dlst"></div>
     </div>
   </div>
+  
   <dialog id="dlg"><div id="dlgt"></div><div id="dlgb"></div><button class="it" id="dlgx">بستن</button></dialog>
+  
   <script src="js/utils.js"></script>
   <script src="js/unicode-scripts.js"></script>
   <script src="js/font-unicode-reader.js"></script>
