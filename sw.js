@@ -1,13 +1,13 @@
 /* آفلاین‌سازی: فایل‌های برنامه + همه‌ی فونت‌های fonts/fonts.json کش می‌شوند. اول شبکه، بعد کش. */
-const C = 'pfk-v4'; // نسخه کش را به v3 افزایش دادیم تا مرورگر فایل‌های جدید را دریافت کند
+const C = 'pfk-AUTO_VERSION'; // ⬅️ این خط توسط گیت‌هاب به صورت خودکار تغییر می‌کند. دست نزنید!
 const FILES = [
   "./",
   "index.html",
-  "keyboard.html",    // اضافه شد
-  "about.html",       // اضافه شد
+  "keyboard.html",
+  "about.html",
   "manifest.json",
   "css/style.css",
-  "css/home.css",     // اضافه شد
+  "css/home.css",
   "icons/icon-192.png",
   "icons/icon-512.png",
   "fonts/fonts.json",
