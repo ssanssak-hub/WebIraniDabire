@@ -1,0 +1,43 @@
+name: Update Service Worker Version
+
+on:
+  push:
+    branches: [ "main" ]  # ⬅️ اگر نام برنچ شما master است، اینجا master بنویسید
+    paths-ignore:
+      - 'sw.js'           # جلوگیری از حلقه بی‌پایان
+
+jobs:
+  update-sw:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write     # نیاز به دسترسی نوشتن برای کامیت کردن
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Compute hash of cached files
+        id: hash
+        run: |
+          # پیدا کردن همه فایل‌های داخل پوشه‌های مشخص و مرتب‌سازی آن‌ها
+          FILES=$(find css js fonts icons -type f 2>/dev/null | sort)
+          FILES="$FILES index.html keyboard.html about.html manifest.json"
+          
+          # محاسبه هش SHA-256 از محتوای همه فایل‌ها و برداشتن ۱۰ کاراکتر اول
+          HASH=$(cat $FILES 2>/dev/null | sha256sum | cut -c1-10)
+          echo "hash=$HASH" >> $GITHUB_OUTPUT
+
+      - name: Update version in sw.js
+        run: |
+          VERSION="${{ steps.hash.outputs.hash }}"
+          # جایگزینی متن pfk-AUTO_VERSION با هش جدید
+          sed -i "s/const C = 'pfk-AUTO_VERSION';/const C = 'pfk-${VERSION}';/" sw.js
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add sw.js
+          # فقط اگر تغییری وجود داشت کامیت کن
+          git diff --quiet && git diff --staged --quiet || git commit -m "Auto-update SW version to ${{ steps.hash.outputs.hash }} [skip ci]"
+          git push
