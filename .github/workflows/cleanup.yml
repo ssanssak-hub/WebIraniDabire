@@ -1,0 +1,40 @@
+name: Cleanup Old Artifacts and Runs
+
+on:
+  schedule:
+    # هر روز ساعت 3 بامداد به وقت جهانی (UTC) اجرا می‌شود
+    - cron: '0 3 * * *'
+  workflow_dispatch: # اجرای دستی برای تست
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write  # مجوز حیاتی برای حذف
+      contents: read
+
+    steps:
+      - name: Delete old artifacts and workflow runs
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "Starting cleanup for repository: ${{ github.repository }}"
+          
+          CUTOFF_DATE=$(date -u -d '1 day ago' +%Y-%m-%dT%H:%M:%SZ)
+          echo "Cutoff date: $CUTOFF_DATE (Anything older than this will be deleted)"
+
+          # 1. حذف آرتیفکت‌های قدیمی‌تر از ۲۴ ساعت
+          echo "Deleting artifacts older than 1 day..."
+          gh api --paginate -H "Accept: application/vnd.github+json" \
+            "/repos/${{ github.repository }}/actions/artifacts" | \
+            jq -r --arg cutoff "$CUTOFF_DATE" '.artifacts[] | select(.created_at < $cutoff) | .id' | \
+            xargs -r -I {} gh api --method DELETE "/repos/${{ github.repository }}/actions/artifacts/{}" || true
+
+          # 2. حذف ران‌های قدیمی‌تر از ۲۴ ساعت (تغییر یافته به gh api)
+          echo "Deleting workflow runs older than 1 day..."
+          gh api --paginate -H "Accept: application/vnd.github+json" \
+            "/repos/${{ github.repository }}/actions/runs" | \
+            jq -r --arg cutoff "$CUTOFF_DATE" '.workflow_runs[] | select(.created_at < $cutoff) | .id' | \
+            xargs -r -I {} gh api --method DELETE "/repos/${{ github.repository }}/actions/runs/{}" || true
+
+          echo "Cleanup complete!"
