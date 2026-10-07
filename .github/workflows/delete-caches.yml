@@ -1,0 +1,17 @@
+name: Delete all caches
+
+on:
+  workflow_dispatch:   # اجرای دستی (با دکمه Run workflow)
+  schedule:
+    - cron: '0 0 * * 0'  # اجرای خودکار، هر هفته یکشنبه‌ها ساعت ۰۰:۰۰
+
+jobs:
+  delete-caches:
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write
+    steps:
+      - name: Delete all caches
+        run: gh cache delete --all --repo ${{ github.repository }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
