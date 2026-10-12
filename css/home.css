@@ -165,6 +165,18 @@ body {
   font-size: 0.9rem;
 }
 
+/* لینک‌های فوتر */
+.site-footer a {
+  color: #cfd8e8;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.site-footer a:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+
 /* ریسپانسیو */
 @media (max-width: 600px) {
   .header-inner {
