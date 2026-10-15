@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>تأیید حساب - دبیره ایرانی</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: Tahoma, -apple-system, sans-serif; background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 100%); margin: 0; padding: 20px; display: flex; align-items: center; justify-content: center; min-height: 100vh; }
+  .card { background: white; border-radius: 20px; padding: 36px 28px; max-width: 440px; width: 100%; box-shadow: 0 8px 32px rgba(0,0,0,0.1); }
+  h1 { color: #1a1a1a; font-size: 22px; margin: 0 0 16px; text-align: center; font-weight: bold; }
+  p { color: #555; line-height: 1.9; margin: 8px 0; text-align: center; font-size: 15px; }
+  .icon { font-size: 56px; text-align: center; margin-bottom: 20px; }
+  .success { color: #2e7d32; }
+  .error { color: #c62828; }
+  .loading { color: #1565c0; }
+  input { width: 100%; padding: 14px; border: 1.5px solid #e0e0e0; border-radius: 12px; font-size: 15px; box-sizing: border-box; margin: 8px 0; font-family: inherit; transition: border-color 0.2s; }
+  input:focus { outline: none; border-color: #1565c0; }
+  button { width: 100%; padding: 14px; background: #1565c0; color: white; border: none; border-radius: 12px; font-size: 15px; cursor: pointer; font-family: inherit; margin-top: 12px; font-weight: bold; transition: background 0.2s; }
+  button:hover:not(:disabled) { background: #0d47a1; }
+  button:disabled { background: #999; cursor: not-allowed; }
+  .hidden { display: none; }
+  .form-error { color: #c62828; font-size: 13px; margin-top: 8px; }
+</style>
+</head>
+<body>
+<div class="card">
+  <div id="icon" class="icon loading">⏳</div>
+  <h1 id="title">در حال پردازش...</h1>
+  <p id="message">لطفاً صبر کنید...</p>
+  
+  <div id="passwordForm" class="hidden">
+    <input type="password" id="password" placeholder="گذرواژه جدید (حداقل ۶ نویسه)" minlength="6" autocomplete="new-password">
+    <input type="password" id="password2" placeholder="تکرار گذرواژه جدید" autocomplete="new-password">
+    <button id="submitBtn">تغییر گذرواژه</button>
+    <p id="formError" class="form-error hidden"></p>
+  </div>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getAuth, applyActionCode, verifyPasswordResetCode, confirmPasswordReset } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAQ5mQIYPds-lsqr6jL_k5IvxZZCQ5tzFE",
+  authDomain: "dabireiranidictionary.firebaseapp.com",
+  projectId: "dabireiranidictionary",
+  storageBucket: "dabireiranidictionary.firebasestorage.app",
+  messagingSenderId: "9997034788",
+  appId: "1:9997034788:web:11c55a93be4bc8cb493fb1"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+const params = new URLSearchParams(location.search);
+const mode = params.get("mode");
+const oobCode = params.get("oobCode");
+
+const $icon = document.getElementById("icon");
+const $title = document.getElementById("title");
+const $msg = document.getElementById("message");
+const $form = document.getElementById("passwordForm");
+const $pwd = document.getElementById("password");
+const $pwd2 = document.getElementById("password2");
+const $btn = document.getElementById("submitBtn");
+const $err = document.getElementById("formError");
+
+function showSuccess(title, msg) {
+  $icon.textContent = "✅";
+  $icon.className = "icon success";
+  $title.textContent = title;
+  $msg.textContent = msg;
+}
+
+function showError(title, msg) {
+  $icon.textContent = "❌";
+  $icon.className = "icon error";
+  $title.textContent = title;
+  $msg.textContent = msg;
+}
+
+async function handle() {
+  if (!mode || !oobCode) {
+    showError("لینک نامعتبر", "این لینک معتبر نیست یا منقضی شده است.");
+    return;
+  }
+  
+  try {
+    if (mode === "verifyEmail") {
+      await applyActionCode(auth, oobCode);
+      showSuccess("ایمیل تأیید شد", "حساب شما با موفقیت فعال شد. می‌توانید به اپلیکیشن برگردید.");
+    } else if (mode === "resetPassword") {
+      const email = await verifyPasswordResetCode(auth, oobCode);
+      $icon.textContent = "🔐";
+      $title.textContent = "تغییر گذرواژه";
+      $msg.textContent = "برای حساب: " + email;
+      $form.classList.remove("hidden");
+      
+      $btn.onclick = async () => {
+        $err.classList.add("hidden");
+        if ($pwd.value.length < 6) {
+          $err.textContent = "گذرواژه باید حداقل ۶ نویسه باشد.";
+          $err.classList.remove("hidden");
+          return;
+        }
+        if ($pwd.value !== $pwd2.value) {
+          $err.textContent = "گذرواژه‌ها یکسان نیستند.";
+          $err.classList.remove("hidden");
+          return;
+        }
+        
+        $btn.disabled = true;
+        $btn.textContent = "در حال تغییر...";
+        try {
+          await confirmPasswordReset(auth, oobCode, $pwd.value);
+          $form.classList.add("hidden");
+          showSuccess("گذرواژه تغییر کرد", "حالا می‌توانید با گذرواژه جدید در اپلیکیشن وارد شوید.");
+        } catch (e) {
+          $btn.disabled = false;
+          $btn.textContent = "تغییر گذرواژه";
+          $err.textContent = "خطا: " + (e.message || "نامشخص");
+          $err.classList.remove("hidden");
+        }
+      };
+    } else if (mode === "recoverEmail") {
+      await applyActionCode(auth, oobCode);
+      showSuccess("ایمیل بازیابی شد", "ایمیل حساب شما بازگردانی شد.");
+    } else {
+      showError("حالت نامشخص", "این نوع درخواست پشتیبانی نمی‌شود.");
+    }
+  } catch (e) {
+    const code = e.code || "";
+    let msg = "لینک نامعتبر یا منقضی شده است.";
+    if (code === "auth/expired-action-code") msg = "این لینک منقضی شده. لطفاً درخواست جدیدی بدهید.";
+    else if (code === "auth/invalid-action-code") msg = "این لینک قبلاً استفاده شده یا نامعتبر است.";
+    showError("خطا", msg);
+  }
+}
+
+handle();
+</script>
+</body>
+</html>
