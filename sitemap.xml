@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://ssanssak.ir/</loc>
-    <lastmod>2026-10-03</lastmod>
-    <changefreq>monthly</changefreq>
-  </url>
+  <url><loc>https://ssanssak.ir/</loc><lastmod>2026-10-17</lastmod></url>
+  <url><loc>https://ssanssak.ir/scripts.html</loc><lastmod>2026-10-17</lastmod></url>
+  <url><loc>https://ssanssak.ir/keyboard.html</loc><lastmod>2026-10-17</lastmod></url>
+  <url><loc>https://ssanssak.ir/templates.html</loc><lastmod>2026-10-17</lastmod></url>
+  <url><loc>https://ssanssak.ir/samples.html</loc><lastmod>2026-10-17</lastmod></url>
+  <url><loc>https://ssanssak.ir/about.html</loc><lastmod>2026-10-17</lastmod></url>
+  <url><loc>https://ssanssak.ir/privacy-policy.html</loc><lastmod>2026-10-17</lastmod></url>
+  <url><loc>https://ssanssak.ir/delete-account.html</loc><lastmod>2026-10-17</lastmod></url>
 </urlset>

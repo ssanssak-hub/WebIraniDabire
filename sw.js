@@ -1,27 +1,35 @@
 /* آفلاین‌سازی: فایل‌های برنامه + همه‌ی فونت‌های fonts/fonts.json کش می‌شوند. اول شبکه، بعد کش. */
-const C = 'pfk-7d830e85dd'; // ⬅️ این خط توسط گیت‌هاب به صورت خودکار تغییر می‌کند. دست نزنید!
+const C = 'pfk-AUTO_VERSION'; // ⬅️ این خط توسط گیت‌هاب به صورت خودکار تغییر می‌کند. دست نزنید!
 const FILES = [
   "./",
   "index.html",
+  "scripts.html",
   "keyboard.html",
+  "templates.html",
+  "samples.html",
   "about.html",
+  "privacy-policy.html",
+  "delete-account.html",
   "manifest.json",
   "css/style.css",
-  "css/home.css",
+  "css/site.css",
   "icons/icon-192.png",
   "icons/icon-512.png",
   "fonts/fonts.json",
-  "js/custom-keyboard-view.js",
-  "js/export-utils.js",
-  "js/font-manager.js",
-  "js/font-name-reader.js",
-  "js/font-unicode-reader.js",
-  "js/image-text-editor.js",
-  "js/main.js",
-  "js/saved-files.js",
-  "js/theme-manager.js",
-  "js/unicode-scripts.js",
-  "js/utils.js"
+  "samples/sample-text.png",
+  "samples/sample-on-image.png",
+  "js/custom-keyboard-view",
+  "js/export-utils",
+  "js/font-manager",
+  "js/font-name-reader",
+  "js/font-unicode-reader",
+  "js/image-text-editor",
+  "js/main",
+  "js/saved-files",
+  "js/site",
+  "js/theme-manager",
+  "js/unicode-scripts",
+  "js/utils"
 ];
 
 self.addEventListener('install', e => {
@@ -54,7 +62,7 @@ self.addEventListener('fetch', e => {
       caches.open(C).then(c => c.put(e.request, cp));
       return r;
     }).catch(() => 
-      caches.match(e.request).then(m => m || caches.match('index.html'))
+      caches.match(e.request,{ignoreSearch:true}).then(m => m || caches.match('index.html'))
     )
   );
 });

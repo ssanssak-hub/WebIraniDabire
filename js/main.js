@@ -26,6 +26,7 @@ window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();dp=
  $('inst').onclick=function(){if(dp){dp.prompt();dp=null;this.hidden=true}};
 window.addEventListener('appinstalled',function(){$('inst').hidden=true});
 if('serviceWorker' in navigator&&/^https?:$/.test(location.protocol))navigator.serviceWorker.register('sw.js').catch(function(){});
+try{var qs=new URLSearchParams(location.search).get('script');if(qs){st.script=qs;save()}}catch(x){}
 (async function(){try{show();ThemeManager.apply();tab(0);
 await FontManager.listAvailableFonts();var f=FontManager.getSelected();
 if(f)await useFont(f);else $('lab').textContent='هیچ فونتی در پوشه‌ی fonts پیدا نشد'}

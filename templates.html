@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0d1633">
+<title>قالب‌های آماده طراحی | دبیره ایرانی</title>
+<meta name="description" content="قالب‌های آمادهٔ نوروز، یلدا، کارت ویزیت، پوستر و استوری با متن دبیره‌های باستانی ایران؛ ویرایش و دانلود PNG.">
+<link rel="canonical" href="https://ssanssak.ir/templates.html">
+<meta property="og:type" content="website"><meta property="og:site_name" content="دبیره ایرانی"><meta property="og:locale" content="fa_IR">
+<meta property="og:title" content="قالب‌های آماده طراحی | دبیره ایرانی"><meta property="og:description" content="قالب‌های آمادهٔ نوروز، یلدا، کارت ویزیت، پوستر و استوری با متن دبیره‌های باستانی ایران؛ ویرایش و دانلود PNG."><meta property="og:url" content="https://ssanssak.ir/templates.html">
+<meta property="og:image" content="https://ssanssak.ir/icons/og-image.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="قالب‌های آماده طراحی | دبیره ایرانی"><meta name="twitter:description" content="قالب‌های آمادهٔ نوروز، یلدا، کارت ویزیت، پوستر و استوری با متن دبیره‌های باستانی ایران؛ ویرایش و دانلود PNG."><meta name="twitter:image" content="https://ssanssak.ir/icons/og-image.png">
+<link rel="manifest" href="manifest.json"><link rel="icon" href="icons/icon-192.png"><link rel="apple-touch-icon" href="icons/icon-192.png">
+<link rel="stylesheet" href="css/site.css">
+</head>
+<body class="site">
+<header class="sh"><div class="wrap"><a href="index.html" class="logo"><svg viewBox="0 0 80 80" aria-hidden="true"><path d="M40 4l9 23 23-9-15 21 15 21-23-9-9 23-9-23-23 9 15-21L8 18l23 9z" fill="#d4af37"/><circle cx="40" cy="40" r="7" fill="#0d1633"/></svg>دبیره ایرانی</a>
+<button class="burger" id="burger" aria-label="منو">☰</button>
+<nav class="nav" id="nav"><a href="index.html">خانه</a><a href="scripts.html">معرفی دبیره‌ها</a><a href="keyboard.html">تخته کلیدهای باستانی</a><a href="templates.html" class=on>قالب‌های آماده</a><a href="samples.html">نمونه خروجی</a><a href="about.html">درباره ما</a><button class="inst" id="hinst" hidden>نصب برنامه</button></nav></div></header>
+<main class="wrap page"><h1>قالب‌های آماده طراحی</h1><p class="sub">قالب را انتخاب کنید، متن باستانی و جملهٔ فارسی را بنویسید و تصویر را دانلود کنید. متن باستانی را می‌توانید از تخته کلیدها کپی کنید.</p>
+<div class="tool"><div><canvas id="cv" width="1200" height="800"></canvas></div>
+<div class="ctrl"><div class="tpls" id="tp"></div>
+<label>دبیره‌ی نمونه</label><select id="sc"><option value="𐎠𐎡𐎢𐎣𐎤𐎥𐎦𐎧𐎨𐎩">پارسی باستان (میخی هخامنشی)</option><option value="𐡀𐡁𐡂𐡃𐡄𐡅𐡆𐡇𐡈𐡉">آرامی امپراتوری</option><option value="𐿠𐿡𐿢𐿣𐿤𐿥𐿦𐿧𐿨𐿩">الیمایی</option><option value="𐭀𐭁𐭂𐭃𐭄𐭅𐭆𐭇𐭈𐭉">پارتی سنگ‌نبشته‌ای</option><option value="𐭠𐭡𐭢𐭣𐭤𐭥𐭦𐭧𐭨𐭩">پهلوی سنگ‌نبشته‌ای</option><option value="𐮀𐮁𐮂𐮃𐮄𐮅𐮆𐮇𐮈𐮉">پهلوی زبوری</option><option value="𐮰𐮱𐮲𐮳𐮴𐮵𐮶𐮷𐮸𐮹">پهلوی کتابی</option><option value="𐬀𐬁𐬂𐬃𐬄𐬅𐬆𐬇𐬈𐬉">اوستایی</option><option value="𐫀𐫁𐫂𐫃𐫄𐫅𐫆𐫇𐫈𐫉">مانوی</option><option value="𐼀𐼁𐼂𐼃𐼄𐼅𐼆𐼇𐼈𐼉">سغدی باستان</option><option value="𐼰𐼱𐼲𐼳𐼴𐼵𐼶𐼷𐼸𐼹">سغدی</option><option value="𐾰𐾱𐾲𐾳𐾴𐾵𐾶𐾷𐾸𐾹">خوارزمی</option></select>
+<label>متن باستانی</label><textarea id="at"></textarea>
+<button class="btn dark" id="kt" type="button">استفاده از متن تخته کلیدها</button>
+<label>جملهٔ فارسی</label><input id="fa" value="دبیره ایرانی">
+<label>اندازهٔ متن باستانی: <span id="szv">100</span>٪</label><input id="sz" type="range" min="50" max="150" value="100">
+<button class="btn gold" id="dw" type="button">دانلود PNG</button></div></div></main>
+<script>
+var T={nowruz:{n:'نوروز',w:1200,h:800,c:['#0f7a7a','#0d1633'],cap:'نوروزتان پیروز'},yalda:{n:'یلدا',w:1200,h:800,c:['#8a1c2f','#1a0a1e'],cap:'شب یلدا مبارک'},
+card:{n:'کارت ویزیت',w:1050,h:600,c:['#fbf6e6','#efe3bd'],cap:'',dark:1},story:{n:'استوری',w:1080,h:1920,c:['#243b8a','#0d1633'],cap:''},poster:{n:'پوستر',w:1200,h:1700,c:['#16245a','#0a0f24'],cap:''}};
+var RTL={"پارسی باستان (میخی هخامنشی)": false, "آرامی امپراتوری": true, "الیمایی": true, "پارتی سنگ‌نبشته‌ای": true, "پهلوی سنگ‌نبشته‌ای": true, "پهلوی زبوری": true, "پهلوی کتابی": true, "اوستایی": true, "مانوی": true, "سغدی باستان": true, "سغدی": true, "خوارزمی": true},cur='nowruz',cv=document.getElementById('cv'),x=cv.getContext('2d'),$=function(i){return document.getElementById(i)};
+var tp=$('tp');Object.keys(T).forEach(function(k){var b=document.createElement('button');b.type='button';b.textContent=T[k].n;b.onclick=function(){cur=k;if(!T[k].dark&&!$('fa').dataset.t)$('fa').value=T[k].cap||$('fa').value;draw()};b.id='t_'+k;tp.appendChild(b)});
+function star(cx,cy,R,r,n){x.beginPath();for(var i=0;i<n*2;i++){var a=Math.PI*i/n-Math.PI/2,q=i%2?r:R;x.lineTo(cx+q*Math.cos(a),cy+q*Math.sin(a))}x.closePath()}
+function wrap(t,mw){var w=t.split(/\s+/),l=[],c='';w.forEach(function(s){var n=c?c+' '+s:s;if(c&&x.measureText(n).width>mw){l.push(c);c=s}else c=n});if(c)l.push(c);return l}
+function draw(){var t=T[cur],W=t.w,H=t.h;cv.width=W;cv.height=H;
+Object.keys(T).forEach(function(k){$('t_'+k).className=k==cur?'on':''});
+var g=x.createLinearGradient(0,0,0,H);g.addColorStop(0,t.c[0]);g.addColorStop(1,t.c[1]);x.fillStyle=g;x.fillRect(0,0,W,H);
+var gold=t.dark?'#8a6d12':'#d4af37',fg=t.dark?'#0d1633':'#fff3c4',m=Math.min(W,H)*.04;
+x.strokeStyle=gold;x.lineWidth=4;x.strokeRect(m,m,W-2*m,H-2*m);x.lineWidth=1.5;x.strokeRect(m*1.6,m*1.6,W-3.2*m,H-3.2*m);
+x.fillStyle=gold;star(W/2,H*.2,Math.min(W,H)*.07,Math.min(W,H)*.032,8);x.fill();
+var sc=$('sz').value/100,fs=Math.min(W,H)*.14*sc,tx=$('at').value.trim()||' ';
+x.direction=RTL[$('sc').options[$('sc').selectedIndex].text]===false?'ltr':'rtl';x.textAlign='center';x.textBaseline='middle';
+x.font=fs+'px Dabire';x.fillStyle=fg;var L=wrap(tx,W-6*m),lh=fs*1.35,y=H*.5-(L.length-1)*lh/2;
+L.forEach(function(s,i){x.fillText(s,W/2,y+i*lh)});
+x.direction='rtl';x.font='bold '+Math.min(W,H)*.06+'px Vazirmatn,Tahoma,sans-serif';x.fillStyle=t.dark?'#1c2340':'#ffffff';x.fillText($('fa').value,W/2,H*.8);
+x.font=Math.min(W,H)*.03+'px Tahoma,sans-serif';x.direction='ltr';x.fillStyle=gold;x.fillText('ssanssak.ir',W/2,H-m*2.4)}
+function go(){document.fonts.load('64px Dabire',$('at').value||'𐬀').then(draw,draw)}
+$('sc').onchange=function(){$('at').value=this.value;go()};$('at').oninput=$('fa').oninput=$('sz').oninput=function(){$('fa').dataset.t=1;$('szv').textContent=$('sz').value;go()};
+$('kt').onclick=function(){try{var s=JSON.parse(localStorage.getItem('state'));if(s&&s.txt){$('at').value=s.txt;go();return}}catch(e){}alert('هنوز متنی در تخته کلیدها ننوشته‌اید.')};
+$('dw').onclick=function(){cv.toBlob(function(b){var a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='dabire-'+cur+'.png';a.click()})};
+$('at').value=$('sc').value;go();
+</script><footer class="sf"><div class="wrap"><div class="cols">
+<div><h4>دبیره ایرانی</h4><p style="margin:0">ابزار آنلاین و آفلاین برای نوشتن با خط‌های باستانی ایران زمین.</p></div>
+<div><h4>صفحه‌ها</h4><a href="index.html">خانه</a><a href="scripts.html">معرفی دبیره‌ها</a><a href="keyboard.html">تخته کلیدهای باستانی</a><a href="templates.html">قالب‌های آماده</a><a href="samples.html">نمونه خروجی</a><a href="about.html">درباره ما</a><a href="privacy-policy.html">سیاست حریم خصوصی</a><a href="delete-account.html">حذف حساب</a></div>
+<div><h4>ارتباط با ما</h4>
+<a href="mailto:support@ssanssak.ir" class="ltr">support@ssanssak.ir</a>
+<a href="https://t.me/dabireirani" data-dl="tg" target="_blank" rel="noopener">تلگرام: @dabireirani</a>
+<a href="https://www.instagram.com/sanss_akq/" data-dl="ig" target="_blank" rel="noopener">اینستاگرام: sanss_akq</a></div>
+<div><h4>دانلود</h4><a href="https://github.com/ssanssak-hub/Ancient-Iranian-script-download-" target="_blank" rel="noopener">دانلود APK و فونت (گیت‌هاب)</a><a href="keyboard.html">اجرای آنلاین / آفلاین</a></div>
+</div><div class="cp">© ۱۴۰۵ دبیره ایرانی — تمامی حقوق محفوظ است.</div></div></footer>
+<script src="js/site.js"></script>
+</body>
+</html>

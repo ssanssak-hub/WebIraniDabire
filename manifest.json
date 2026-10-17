@@ -28,7 +28,6 @@
     {
       "name": "تخته کلیدهای باستانی",
       "short_name": "تخته کلیدها",
-      "description": "ورود مستقیم به ابزار نوشتن با دبیره‌های باستانی",
       "url": "keyboard.html",
       "icons": [
         {
@@ -36,6 +35,29 @@
           "sizes": "192x192"
         }
       ]
+    },
+    {
+      "name": "قالب‌های آماده",
+      "short_name": "قالب‌ها",
+      "url": "templates.html",
+      "icons": [
+        {
+          "src": "icons/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "معرفی دبیره‌ها",
+      "short_name": "دبیره‌ها",
+      "url": "scripts.html",
+      "icons": [
+        {
+          "src": "icons/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
     }
-  ]
+  ],
+  "id": "./"
 }
