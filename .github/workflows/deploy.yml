@@ -27,7 +27,7 @@ jobs:
           find . -name "*.zip" -type f -not -path "./.git/*" | while read -r z; do
             echo "Extracting $z ..."
             tmp=$(mktemp -d)
-            unzip -q -o "$z" -d "$tmp"
+            unzip -q -o "$z" -d "$tmp" -x ".github/*"
             rm -rf "$tmp/__MACOSX"
             if [ "$(find "$tmp" -mindepth 1 -maxdepth 1 | wc -l)" -eq 1 ] && [ -d "$(find "$tmp" -mindepth 1 -maxdepth 1)" ]; then
               src="$(find "$tmp" -mindepth 1 -maxdepth 1)"
