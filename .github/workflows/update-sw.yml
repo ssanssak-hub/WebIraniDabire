@@ -20,8 +20,8 @@ jobs:
         id: hash
         run: |
           # پیدا کردن همه فایل‌های داخل پوشه‌های مشخص و مرتب‌سازی آن‌ها
-          FILES=$(find css js fonts icons -type f 2>/dev/null | sort)
-          FILES="$FILES index.html keyboard.html about.html manifest.json"
+          FILES=$(find css js fonts icons samples -type f 2>/dev/null | sort)
+          FILES="$FILES $(ls *.html) manifest.json"
           
           # محاسبه هش SHA-256 از محتوای همه فایل‌ها و برداشتن ۱۰ کاراکتر اول
           HASH=$(cat $FILES 2>/dev/null | sha256sum | cut -c1-10)
