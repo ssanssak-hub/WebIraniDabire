@@ -1,5 +1,7 @@
-/* معادل ThemeManager.kt — همان ۱۷ تم اپ با رنگ‌های روشن/تاریک [پس‌زمینه، سطح، نوار بالا، رنگ اصلی] */
+/* معادل ThemeManager.kt — همان ۱۷ تم اپ با رنگ‌های روشن/تاریک [پس‌زمینه، سطح، نوار بالا، رنگ اصلی]
+   حالا روی «همه‌ی صفحه‌های سایت» اعمال می‌شود (هر صفحه این فایل را در head بارگذاری می‌کند). */
 var ThemeManager={
+DEFAULT:'indigo',
 themes:[
 {id:'blue',title:'آبی',light:['#e8f1fb','#f7fafd','#1e88e5','#1565c0'],dark:['#0e1720','#17232f','#1c2f42','#42a5f5']},
 {id:'indigo',title:'نیلی',light:['#e8eaf6','#f8f9fd','#3f51b5','#283593'],dark:['#11131f','#1a1d2e','#232848','#7986cb']},
@@ -19,14 +21,25 @@ themes:[
 {id:'grey',title:'خاکستری',light:['#f0f0f2','#fafafb','#616161','#424242'],dark:['#131417','#1d1f23','#26282d','#9e9e9e']},
 {id:'brown',title:'قهوه‌ای',light:['#efebe9','#faf8f7','#6d4c41','#4e342e'],dark:['#171211','#241c19','#30241f','#a1887f']}
 ],
-current:function(){var id=st.theme;return this.themes.filter(function(t){return t.id===id})[0]||this.themes[0]},
-apply:function(){var t=this.current();if(!t||!t.light)return;var s=st.dark?t.dark:t.light,r=document.documentElement.style;
-function L(h){var n=parseInt(h.slice(1),16);return(0.299*(n>>16)+0.587*(n>>8&255)+0.114*(n&255))/255}
-r.setProperty('--bg',s[0]);r.setProperty('--sf',s[1]);r.setProperty('--bar',s[2]);r.setProperty('--ac',s[3]);
-r.setProperty('--fg',L(s[0])>.55?'#1f1f1f':'#f2f2f2');r.setProperty('--acf',L(s[3])>.55?'#1f1f1f':'#ffffff');
+current:function(){var id=st.theme,me=this,f=function(x){return me.themes.filter(function(t){return t.id===x})[0]};return f(id)||f(this.DEFAULT)||this.themes[0]},
+apply:function(){var t=this.current();if(!t||!t.light)return;var s=st.dark?t.dark:t.light,r=document.documentElement,rs=r.style;
+function lum(h){var n=parseInt(h.slice(1),16),c=[n>>16,n>>8&255,n&255].map(function(v){v/=255;return v<=.03928?v/12.92:Math.pow((v+.055)/1.055,2.4)});return .2126*c[0]+.7152*c[1]+.0722*c[2]}
+function pct(h){var n=parseInt(h.slice(1),16);return(0.299*(n>>16)+0.587*(n>>8&255)+0.114*(n&255))/255}
+function on(h){return lum(h)>.179?'#161616':'#ffffff'}
+rs.setProperty('--bg',s[0]);rs.setProperty('--sf',s[1]);rs.setProperty('--bar',s[2]);rs.setProperty('--ac',s[3]);
+rs.setProperty('--fg',pct(s[0])>.55?'#1f1f1f':'#f2f2f2');rs.setProperty('--acf',on(s[3]));rs.setProperty('--barfg',on(s[2]));
+r.setAttribute('data-dark',st.dark?'1':'0');rs.colorScheme=st.dark?'dark':'light';
 var m=document.querySelector('meta[name=theme-color]');if(m)m.content=s[2]},
-showPicker:function(){var me=this;openDialog('تم اپلیکیشن',function(b,close){
-var d=mk((st.dark?'✓ ':'')+'حالت تاریک','it',function(){st.dark=!st.dark;save();me.apply();close();me.showPicker()});b.appendChild(d);
-me.themes.forEach(function(t){var s=st.dark?t.dark:t.light,x=mk('','it',function(){st.theme=t.id;save();me.apply();close();me.showPicker()});
-s.forEach(function(c){var o=document.createElement('i');o.className='dot';o.style.background=c;x.appendChild(o)});
-x.appendChild(document.createTextNode((t.id===st.theme?'✓ ':'')+t.title));b.appendChild(x)})})}};
+setDark:function(d){st.dark=!!d;save();this.apply()},
+setTheme:function(id){st.theme=id;save();this.apply()},
+showPicker:function(){var me=this;openDialog('تم و ظاهر سایت',function(b){
+var seg=document.createElement('div');seg.className='seg';
+var bl=mk('☀ روشن','',function(){me.setDark(false);ref()}),bd=mk('☾ تاریک','',function(){me.setDark(true);ref()});
+seg.appendChild(bl);seg.appendChild(bd);b.appendChild(seg);
+var g=document.createElement('div');g.className='tgrid';b.appendChild(g);
+function ref(){bl.classList.toggle('on',!st.dark);bd.classList.toggle('on',!!st.dark);g.innerHTML='';
+var cur=me.current().id;
+me.themes.forEach(function(t){var s=st.dark?t.dark:t.light,x=mk('','tsw'+(t.id===cur?' on':''),function(){me.setTheme(t.id);ref()});
+var p=document.createElement('span');p.className='pv';p.style.cssText='--a:'+s[0]+';--b:'+s[1]+';--c:'+s[2]+';--d:'+s[3];x.appendChild(p);
+x.appendChild(document.createTextNode((t.id===cur?'✓ ':'')+t.title));g.appendChild(x)})}
+ref()})}};

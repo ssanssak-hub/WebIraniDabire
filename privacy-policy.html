@@ -4,6 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0d1633">
+<script>document.documentElement.className+=' js'</script>
+<script src="js/utils.js"></script><script src="js/theme-manager.js"></script><script>ThemeManager.apply()</script>
 <title>سیاست حریم خصوصی | دبیره ایرانی</title>
 <meta name="description" content="سیاست حریم خصوصی برنامه و وب‌سایت دبیره ایرانی.">
 <link rel="canonical" href="https://ssanssak.ir/privacy-policy.html">
@@ -15,9 +17,11 @@
 <link rel="stylesheet" href="css/site.css">
 </head>
 <body class="site">
-<header class="sh"><div class="wrap"><a href="index.html" class="logo"><svg viewBox="0 0 80 80" aria-hidden="true"><path d="M40 4l9 23 23-9-15 21 15 21-23-9-9 23-9-23-23 9 15-21L8 18l23 9z" fill="#d4af37"/><circle cx="40" cy="40" r="7" fill="#0d1633"/></svg>دبیره ایرانی</a>
-<button class="burger" id="burger" aria-label="منو">☰</button>
-<nav class="nav" id="nav"><a href="index.html">خانه</a><a href="scripts.html">معرفی دبیره‌ها</a><a href="keyboard.html">تخته کلیدهای باستانی</a><a href="templates.html">قالب‌های آماده</a><a href="samples.html">نمونه خروجی</a><a href="about.html">درباره ما</a><button class="inst" id="hinst" hidden>نصب برنامه</button></nav></div></header>
+<div id="prog" aria-hidden="true"></div>
+<header class="sh"><div class="wrap"><a href="index.html" class="logo"><svg viewBox="0 0 80 80" aria-hidden="true"><path d="M40 4l9 23 23-9-15 21 15 21-23-9-9 23-9-23-23 9 15-21L8 18l23 9z"/><circle cx="40" cy="40" r="7"/></svg><span>دبیره ایرانی</span></a>
+<nav class="nav" id="nav"><a href="index.html">خانه</a><a href="scripts.html">معرفی دبیره‌ها</a><a href="keyboard.html">تخته کلیدهای باستانی</a><a href="templates.html">قالب‌های آماده</a><a href="samples.html">نمونه خروجی</a><a href="about.html">درباره ما</a><button class="inst" id="hinst" hidden>نصب برنامه</button></nav>
+<div class="hdt"><button class="ib" id="hth" type="button" aria-label="انتخاب تم" title="انتخاب تم"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 100 18c1.1 0 1.8-.9 1.5-1.9-.3-1 .4-2.1 1.5-2.1H17a4 4 0 004-4c0-5-4-10-9-10z" fill="none" stroke-width="1.8" stroke-linejoin="round"/><circle cx="7.5" cy="11" r="1.3" stroke="none"/><circle cx="10.5" cy="7" r="1.3" stroke="none"/><circle cx="15" cy="7.5" r="1.3" stroke="none"/></svg></button><button class="ib" id="hdk" type="button" aria-label="حالت تاریک / روشن" title="حالت تاریک / روشن"><svg class="su" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4" stroke="none"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1" fill="none" stroke-width="2" stroke-linecap="round"/></svg><svg class="mo" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 019.5 4a8 8 0 1010.5 10.5z" stroke="none"/></svg></button></div>
+<button class="burger" id="burger" type="button" aria-label="منو" aria-expanded="false"><i></i><i></i><i></i></button></div></header>
 <main class="wrap page prose"><h1>سیاست حریم خصوصی — دبیره ایرانی</h1>
 
 <h2>مقدمه</h2>
@@ -57,9 +61,9 @@
 <div><h4>دبیره ایرانی</h4><p style="margin:0">ابزار آنلاین و آفلاین برای نوشتن با خط‌های باستانی ایران زمین.</p></div>
 <div><h4>صفحه‌ها</h4><a href="index.html">خانه</a><a href="scripts.html">معرفی دبیره‌ها</a><a href="keyboard.html">تخته کلیدهای باستانی</a><a href="templates.html">قالب‌های آماده</a><a href="samples.html">نمونه خروجی</a><a href="about.html">درباره ما</a><a href="privacy-policy.html">سیاست حریم خصوصی</a><a href="delete-account.html">حذف حساب</a></div>
 <div><h4>ارتباط با ما</h4>
-<a href="mailto:support@ssanssak.ir" class="ltr">support@ssanssak.ir</a>
-<a href="https://t.me/dabireirani" data-dl="tg" target="_blank" rel="noopener">تلگرام: @dabireirani</a>
-<a href="https://www.instagram.com/sanss_akq/" data-dl="ig" target="_blank" rel="noopener">اینستاگرام: sanss_akq</a></div>
+<div class="ct"><span class="lb">رایانامه پشتیبانی:</span><a href="mailto:support@ssanssak.ir" class="ltr">support@ssanssak.ir</a></div>
+<div class="ct"><span class="lb">تلگرام:</span><a href="https://t.me/dabireirani" data-dl="tg" target="_blank" rel="noopener" class="ltr">@dabireirani</a></div>
+<div class="ct"><span class="lb">اینستاگرام:</span><a href="https://www.instagram.com/sanss_ak/" data-dl="ig" target="_blank" rel="noopener" class="ltr">sanss_ak</a></div></div>
 <div><h4>دانلود</h4><a href="https://github.com/ssanssak-hub/Ancient-Iranian-script-download-" target="_blank" rel="noopener">دانلود APK و فونت (گیت‌هاب)</a><a href="keyboard.html">اجرای آنلاین / آفلاین</a></div>
 </div><div class="cp">© ۱۴۰۵ دبیره ایرانی — تمامی حقوق محفوظ است.</div></div></footer>
 <script src="js/site.js"></script>

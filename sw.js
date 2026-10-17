@@ -1,5 +1,5 @@
 /* آفلاین‌سازی: فایل‌های برنامه + همه‌ی فونت‌های fonts/fonts.json کش می‌شوند. اول شبکه، بعد کش. */
-const C = 'pfk-4a9c06b983'; // ⬅️ این خط توسط گیت‌هاب به صورت خودکار تغییر می‌کند. دست نزنید!
+const C = 'pfk-AUTO_VERSION'; // ⬅️ این خط توسط گیت‌هاب به صورت خودکار تغییر می‌کند. دست نزنید!
 const FILES = [
   "./",
   "index.html",
@@ -18,18 +18,18 @@ const FILES = [
   "fonts/fonts.json",
   "samples/sample-text.png",
   "samples/sample-on-image.png",
-  "js/custom-keyboard-view",
-  "js/export-utils",
-  "js/font-manager",
-  "js/font-name-reader",
-  "js/font-unicode-reader",
-  "js/image-text-editor",
-  "js/main",
-  "js/saved-files",
-  "js/site",
-  "js/theme-manager",
-  "js/unicode-scripts",
-  "js/utils"
+  "js/custom-keyboard-view.js",
+  "js/export-utils.js",
+  "js/font-manager.js",
+  "js/font-name-reader.js",
+  "js/font-unicode-reader.js",
+  "js/image-text-editor.js",
+  "js/main.js",
+  "js/saved-files.js",
+  "js/site.js",
+  "js/theme-manager.js",
+  "js/unicode-scripts.js",
+  "js/utils.js"
 ];
 
 self.addEventListener('install', e => {

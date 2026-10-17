@@ -4,26 +4,29 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>تأیید حساب - دبیره ایرانی</title>
+<meta name="theme-color" content="#0d1633">
+<script>document.documentElement.className+=' js'</script>
+<script src="../js/utils.js"></script><script src="../js/theme-manager.js"></script><script>ThemeManager.apply()</script>
+<link rel="stylesheet" href="../css/site.css">
 <style>
-  * { box-sizing: border-box; }
-  body { font-family: Tahoma, -apple-system, sans-serif; background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 100%); margin: 0; padding: 20px; display: flex; align-items: center; justify-content: center; min-height: 100vh; }
-  .card { background: white; border-radius: 20px; padding: 36px 28px; max-width: 440px; width: 100%; box-shadow: 0 8px 32px rgba(0,0,0,0.1); }
-  h1 { color: #1a1a1a; font-size: 22px; margin: 0 0 16px; text-align: center; font-weight: bold; }
-  p { color: #555; line-height: 1.9; margin: 8px 0; text-align: center; font-size: 15px; }
-  .icon { font-size: 56px; text-align: center; margin-bottom: 20px; }
-  .success { color: #2e7d32; }
-  .error { color: #c62828; }
-  .loading { color: #1565c0; }
-  input { width: 100%; padding: 14px; border: 1.5px solid #e0e0e0; border-radius: 12px; font-size: 15px; box-sizing: border-box; margin: 8px 0; font-family: inherit; transition: border-color 0.2s; }
-  input:focus { outline: none; border-color: #1565c0; }
-  button { width: 100%; padding: 14px; background: #1565c0; color: white; border: none; border-radius: 12px; font-size: 15px; cursor: pointer; font-family: inherit; margin-top: 12px; font-weight: bold; transition: background 0.2s; }
-  button:hover:not(:disabled) { background: #0d47a1; }
-  button:disabled { background: #999; cursor: not-allowed; }
-  .hidden { display: none; }
-  .form-error { color: #c62828; font-size: 13px; margin-top: 8px; }
+  body{padding:20px;display:flex;align-items:center;justify-content:center;min-height:100vh}
+  .card{max-width:440px;width:100%;padding:36px 28px;border-radius:22px;box-shadow:0 24px 60px -26px var(--glow)}
+  h1{color:var(--fg);font-size:22px;margin:0 0 16px;text-align:center;font-weight:bold}
+  p{color:var(--mut);line-height:1.9;margin:8px 0;text-align:center;font-size:15px}
+  .icon{font-size:56px;text-align:center;margin-bottom:20px}
+  .icon.loading{animation:spin 1.6s linear infinite;width:max-content;margin-inline:auto}
+  .success{color:#2e9d4f}.error{color:#d9453d}.loading{color:var(--ac)}
+  input{width:100%;padding:14px;border:1.5px solid var(--line);border-radius:12px;font-size:15px;margin:8px 0;font-family:inherit;background:var(--bg);color:var(--fg);transition:border-color .2s,box-shadow .2s}
+  input:focus{outline:none;border-color:var(--ac);box-shadow:0 0 0 3px var(--soft)}
+  button{width:100%;padding:14px;background:linear-gradient(135deg,var(--ac),color-mix(in srgb,var(--ac) 62%,var(--bar)));color:var(--acf);border:none;border-radius:12px;font-size:15px;cursor:pointer;font-family:inherit;margin-top:12px;font-weight:bold;transition:transform .25s var(--ease),filter .2s}
+  button:hover:not(:disabled){transform:translateY(-2px);filter:brightness(1.08)}
+  button:disabled{filter:grayscale(1);opacity:.6;cursor:not-allowed}
+  .hidden{display:none}
+  .form-error{color:#d9453d;font-size:13px;margin-top:8px}
 </style>
+
 </head>
-<body>
+<body class="site">
 <div class="card">
   <div id="icon" class="icon loading">⏳</div>
   <h1 id="title">در حال پردازش...</h1>
@@ -37,6 +40,7 @@
   </div>
 </div>
 
+<script src="../js/site.js"></script>
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getAuth, applyActionCode, verifyPasswordResetCode, confirmPasswordReset } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
