@@ -19,6 +19,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       # هر فایل zip در مخزن را باز می‌کند. اگر داخل زیپ یک پوشه‌ی بیرونی باشد
       # (مثل persian-font-web/)، محتویاتش را مستقیم در ریشه می‌گذارد.
@@ -44,12 +46,29 @@ jobs:
           git config user.email "action@github.com"
           git config user.name "GitHub Action"
           git add -A
+
           if git diff --staged --quiet; then
             echo "No changes to commit"
-          else
-            git commit -m "Extract zip archive"
-            git push
+            exit 0
           fi
+
+          git commit -m "Extract zip archive"
+
+          for i in 1 2 3 4 5; do
+            echo "Attempt $i: syncing with origin/${GITHUB_REF_NAME}"
+            git pull --rebase origin "${GITHUB_REF_NAME}"
+
+            if git push origin "HEAD:${GITHUB_REF_NAME}"; then
+              echo "Push successful"
+              exit 0
+            fi
+
+            echo "Push rejected, retrying..."
+            sleep 3
+          done
+
+          echo "Push failed after 5 attempts"
+          exit 1
 
       - name: Prepare site
         run: |
