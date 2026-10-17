@@ -1,0 +1,48 @@
+name: Unzip uploaded zip
+
+on:
+  push:
+    paths:
+      - '**.zip'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  unzip:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Extract zip files
+        run: |
+          found=0
+          while IFS= read -r z; do
+            found=1
+            echo "Extracting $z"
+            tmp=$(mktemp -d)
+            unzip -q -o "$z" -d "$tmp" -x "__MACOSX/*" ".github/*"
+            # اگر داخل زیپ فقط یک پوشه بود، محتویاتش را به ریشه ببر
+            if [ "$(find "$tmp" -mindepth 1 -maxdepth 1 | wc -l)" -eq 1 ] && [ -d "$(find "$tmp" -mindepth 1 -maxdepth 1)" ]; then
+              src="$(find "$tmp" -mindepth 1 -maxdepth 1)"
+            else
+              src="$tmp"
+            fi
+            cp -a "$src"/. ./
+            rm -f "$z"
+            rm -rf "$tmp"
+          done < <(find . -maxdepth 1 -name "*.zip" -type f)
+          [ "$found" -eq 1 ] || echo "No zip file found"
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --staged --quiet; then
+            echo "No changes"
+          else
+            git commit -m "Extract zip archive"
+            git push
+          fi
