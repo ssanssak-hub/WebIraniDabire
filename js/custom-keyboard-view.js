@@ -7,16 +7,19 @@ me.scripts.forEach(function(g,i){var b=mk(g.name,'sch',function(){me.cur=i;me.dr
 markStrip:function(user){var sl=$('sl');if(!sl)return;var on=null;
 Array.prototype.forEach.call(sl.children,function(b){var a=+b.getAttribute('data-i')===CustomKeyboardView.cur;b.classList.toggle('on',a);if(a)on=b});
 if(on){var r=on.getBoundingClientRect(),q=sl.getBoundingClientRect();sl.scrollBy({left:(r.left+r.width/2)-(q.left+q.width/2),behavior:user?'smooth':'auto'})}},
-draw:function(user){var me=this,L=me.listener,S=me.scripts,kb=$('kb'),fr=document.createDocumentFragment(),r=document.createElement('div');
-r.className='row';
+draw:function(user){var me=this,L=me.listener,S=me.scripts,kb=$('kb'),fr=document.createDocumentFragment(),top=document.createElement('div'),r=document.createElement('div');
+top.className='kbtop';r.className='row';
 r.appendChild(mk('◀ خط','k c',function(){me.go(-1)}));r.appendChild(mk('خط ▶','k c',function(){me.go(1)}));
 r.appendChild(mk('فاصله','k c',function(){L.onCharacter(' ')}));
 r.appendChild(mk('⏎','k c',function(){L.onEnter()},'خط جدید'));
 r.appendChild(mk('⌫','k c',function(){L.onBackspace()},'حذف'));
-r.appendChild(mk('نسخه‌اپلیکیشن','k c',function(){window.open('https://github.com/ssanssak-hub/Ancient-Iranian-script-download-','_blank')},'دانلود اپلیکیشن'));fr.appendChild(r);
+r.appendChild(mk('نسخه‌اپلیکیشن','k c',function(){window.open('https://github.com/ssanssak-hub/Ancient-Iranian-script-download-','_blank')},'دانلود اپلیکیشن'));top.appendChild(r);var rc=document.createElement('div');rc.id='rc';rc.className='row rcrow';top.appendChild(rc);fr.appendChild(top);
 kb.innerHTML='';if(!S.length){$('lab').textContent='';kb.appendChild(fr);return}
 var g=S[me.cur];$('lab').textContent='خط: '+g.name+'  ('+(me.cur+1)+'/'+S.length+')';L.onScriptChanged(g.name,me.cur,S.length);me.markStrip(user);
 var cp=g.codePoints,n=0;
 for(var i=0;i<cp.length;i+=me.COLUMNS){var row=document.createElement('div');row.className='row';
 cp.slice(i,i+me.COLUMNS).forEach(function(c){var ch=String.fromCodePoint(c),k=mk(ch,'k',function(){L.onCharacter(ch)});k.style.setProperty('--i',Math.min(n++,40));row.appendChild(k)});fr.appendChild(row)}
-kb.appendChild(fr)}};
+kb.appendChild(fr);kb.scrollTop=0;me.drawRecent()},
+drawRecent:function(){var rc=$('rc');if(!rc)return;var L=this.listener,a=(st.recent||[]).slice(0,12);rc.innerHTML='';rc.hidden=!a.length;if(!a.length)return;
+var l=document.createElement('span');l.className='rcl';l.textContent='اخیر';rc.appendChild(l);
+a.forEach(function(ch){rc.appendChild(mk(ch,'k r',function(){L.onCharacter(ch,true)}))})}};

@@ -13,7 +13,7 @@
 .tabs button.on{background:var(--ac)!important;color:var(--acf)!important;box-shadow:0 8px 18px -10px var(--glow)}
 #s0,#s1,#s2{animation:tabin .4s var(--ease)}
 @keyframes tabin{from{opacity:0;transform:translateY(12px)}}
-#t{min-height:110px;border:1px solid var(--line);border-radius:14px;padding:12px;font-family:var(--app-font),Tahoma,sans-serif;line-height:1.8;white-space:pre-wrap;word-break:break-word;transition:box-shadow .3s,border-color .3s}
+#t{position:sticky;top:calc(var(--hh,64px) + 2px);z-index:5;box-shadow:0 8px 14px -10px var(--glow);background-clip:padding-box;min-height:90px;max-height:clamp(90px,22vh,190px);overflow-y:auto;overscroll-behavior:contain;border:1px solid var(--line);border-radius:14px;padding:12px;font-family:var(--app-font),Tahoma,sans-serif;line-height:1.8;white-space:pre-wrap;word-break:break-word;transition:box-shadow .3s,border-color .3s}
 #t:hover{border-color:color-mix(in srgb,var(--ac) 50%,transparent);box-shadow:0 0 0 3px var(--soft)}
 #t::after{content:"";display:inline-block;width:2px;height:1.1em;margin-inline-start:2px;vertical-align:text-bottom;background:var(--ac);animation:blink 1s steps(2) infinite}
 @keyframes blink{50%{opacity:0}}
@@ -27,7 +27,13 @@
 .chipbar:empty{display:none}
 #app .sch{flex:none;height:32px;padding:0 13px;font-size:12.5px;border-radius:999px;white-space:nowrap;background:var(--bg)}
 #app .sch.on{background:var(--ac);color:var(--acf);border-color:transparent;box-shadow:0 8px 16px -10px var(--glow)}
-#kb{direction:ltr}
+#kb{direction:ltr;max-height:clamp(220px,50vh,440px);max-height:clamp(220px,50dvh,440px);overflow-y:scroll;overscroll-behavior:contain;touch-action:pan-y;scrollbar-width:thin;scrollbar-color:var(--ac) transparent;-webkit-overflow-scrolling:touch;padding-inline-end:3px;border-radius:12px}
+.kbtop{position:sticky;top:0;z-index:3;background:var(--sf);padding-bottom:3px;box-shadow:0 6px 8px -8px var(--line)}
+.kbtop .row{margin-bottom:3px}
+.rcrow{align-items:center}.rcrow[hidden]{display:none}
+.rcl{flex:none;font:11px Tahoma,sans-serif;opacity:.7;padding:0 6px}
+.k.r{height:36px;font-size:16px;background:var(--soft)!important;box-shadow:none;animation:none}
+.cnt{font-size:12px;opacity:.7;text-align:start;margin:4px 2px 0}
 .row{display:flex;gap:3px;margin-bottom:3px}
 .k{flex:1;min-width:0;height:44px;padding:0;font-family:var(--app-font),Tahoma,sans-serif;font-size:18px;overflow:hidden;box-shadow:0 2px 0 var(--line);animation:kin .38s var(--ease) both;animation-delay:calc(var(--i,0) * 9ms)}
 @keyframes kin{from{opacity:0;transform:translateY(10px) scale(.85)}}

@@ -49,10 +49,10 @@ D.addEventListener('click',function(e){
 var S=[
 {n:'پارسی باستان',t:'\uD800\uDFA0\uD800\uDFA1\uD800\uDFA2\uD800\uDFA3\uD800\uDFA4\uD800\uDFA5\uD800\uDFA6\uD800\uDFA7',d:'ltr'},
 {n:'آرامی امپراتوری',t:'\uD802\uDC40\uD802\uDC41\uD802\uDC42\uD802\uDC43\uD802\uDC44\uD802\uDC45\uD802\uDC46\uD802\uDC47',d:'rtl'},
-{n:'پهلوی کتابی (دستورمند)',t:'\u05D0\u05D1\u05D2\u05D3\u05D4\u05D5\u05D6\u05D7',d:'rtl'},
+{n:'پهلوی کتابی (دستورمند)',t:'מלל ףכ ׃ ףאאחה',d:'rtl'},
 {n:'پهلوی زبوری',t:'\uD802\uDF80\uD802\uDF81\uD802\uDF82\uD802\uDF83\uD802\uDF84\uD802\uDF85\uD802\uDF86\uD802\uDF87',d:'rtl'},
 {n:'پهلوی سنگ‌نبشته‌ای',t:'\uD802\uDF60\uD802\uDF61\uD802\uDF62\uD802\uDF63\uD802\uDF64\uD802\uDF65\uD802\uDF66\uD802\uDF67',d:'rtl'},
-{n:'پهلوی کتابی (بی‌دستور)',t:'\uE000\uE001\uE002\uE003\uE004\uE005\uE006\uE007',d:'rtl',o:1},
+{n:'پهلوی کتابی (بی‌دستور)',t:'מלל ףכ ׃ ףאאחה',d:'rtl'},
 {n:'اوستایی',t:'\uD802\uDF00\uD802\uDF01\uD802\uDF02\uD802\uDF03\uD802\uDF04\uD802\uDF05\uD802\uDF06\uD802\uDF07',d:'rtl'},
 {n:'مانوی',t:'\uD802\uDEC0\uD802\uDEC1\uD802\uDEC2\uD802\uDEC3\uD802\uDEC4\uD802\uDEC5\uD802\uDEC6\uD802\uDEC7',d:'rtl'},
 {n:'سغدی',t:'\uD803\uDF30\uD803\uDF31\uD803\uDF32\uD803\uDF33\uD803\uDF34\uD803\uDF35\uD803\uDF36\uD803\uDF37',d:'rtl'},
@@ -63,7 +63,7 @@ var S=[
 /* ── پس‌زمینهٔ زنده: حباب‌های رنگی + نویسه‌های شناور ── */
 (function(){
  var o=D.createElement('div');o.className='orbs';o.setAttribute('aria-hidden','true');o.innerHTML='<i></i><i></i><i></i>';
- if(!reduce){var pool=Array.from(S.map(function(x){return x.t}).join('')),cnt=innerWidth<700?7:14;
+ if(!reduce){var pool=Array.from(S.map(function(x){return x.t}).join('')).filter(function(c){return c.trim()}),cnt=innerWidth<700?7:14;
   for(var i=0;i<cnt;i++){var f=D.createElement('span'),t=24+Math.random()*44;f.className='fl';f.textContent=pool[Math.floor(Math.random()*pool.length)];
    f.style.cssText='left:'+(Math.random()*96).toFixed(1)+'%;font-size:'+t.toFixed(0)+'px;--t:'+(26+Math.random()*24).toFixed(1)+'s;--dl:-'+(Math.random()*40).toFixed(1)+'s;--o:'+(.07+Math.random()*.08).toFixed(3)+';--dx:'+(Math.random()*160-80).toFixed(0)+'px;--rot:'+(Math.random()*120-60).toFixed(0)+'deg';
    o.appendChild(f)}}
