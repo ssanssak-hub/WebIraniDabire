@@ -93,10 +93,28 @@ D.addEventListener('pointerdown',function(e){if(reduce)return;var t=e.target.clo
 
 /* ── صفحهٔ اصلی: چرخش نمونه‌ی دبیره‌ها و نوار متحرک ── */
 var g=$('glyph'),gn=$('gname');
-if(g&&gn){var box=g.parentNode,i=0;
- var set=function(s){g.textContent='';g.dir=s.d;Array.from(s.t).forEach(function(c,j){var e=D.createElement('span');e.textContent=c;e.style.setProperty('--i',j);g.appendChild(e)});gn.textContent=s.n};
+if(g&&gn){
+ var box=g.parentNode,i=0;
+ // 👇 تغییرات اعمال شده: متن دیگر به حروف تقسیم نمی‌شود و کل کلمه یکجا نمایش داده می‌شود
+ var set=function(s){
+   g.textContent=s.t;
+   g.dir=s.d;
+   gn.textContent=s.n;
+   // ریست کردن انیمیشن برای اجرای مجدد روی کل کلمه
+   g.style.animation='none';
+   g.offsetHeight; // ترفند برای فورس کردن ری‌فلو (اجبار مرورگر به شناسایی تغییر)
+   g.style.animation='';
+ };
  set(S[0]);
- if(!reduce)setInterval(function(){box.classList.add('out');setTimeout(function(){i=(i+1)%S.length;set(S[i]);box.classList.remove('out')},450)},3800)}
+ if(!reduce)setInterval(function(){
+   box.classList.add('out');
+   setTimeout(function(){
+     i=(i+1)%S.length;
+     set(S[i]);
+     box.classList.remove('out');
+   },450);
+ },3800);
+}
 var mq=$('marq');
 if(mq){var h='';S.forEach(function(s){h+='<span><b dir="rtl"'+(s.o?' class="pua"':'')+'>'+s.t+'</b><em>'+s.n+'</em></span>'});
  mq.innerHTML='<div class="mt">'+h+h+'</div>'}
