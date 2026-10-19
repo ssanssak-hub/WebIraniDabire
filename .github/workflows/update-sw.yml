@@ -16,9 +16,9 @@ on:
 permissions:
   contents: write
 
-# جلوگیری از اجرای هم‌زمان؛ اجراها پشت سر هم انجام می‌شوند
+# جلوگیری از اجرای هم‌زمان؛ با تغییر نام گروه، صف قبلی دور زده می‌شود
 concurrency:
-  group: update-sw-main
+  group: update-sw-main-v2
   cancel-in-progress: true
 
 jobs:
