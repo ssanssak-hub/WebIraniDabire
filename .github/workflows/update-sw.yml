@@ -19,7 +19,7 @@ permissions:
 # جلوگیری از اجرای هم‌زمان؛ اجراها پشت سر هم انجام می‌شوند
 concurrency:
   group: update-sw-main
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   update-sw:
