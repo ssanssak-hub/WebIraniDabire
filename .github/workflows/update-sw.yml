@@ -1,43 +1,76 @@
-name: Update Service Worker Version
+name: update-sw
 
 on:
   push:
-    branches: [ "main" ]  # ⬅️ اگر نام برنچ شما master است، اینجا master بنویسید
-    paths-ignore:
-      - 'sw.js'           # جلوگیری از حلقه بی‌پایان
+    branches: [main]
+    paths:
+      - 'css/**'
+      - 'js/**'
+      - 'fonts/**'
+      - 'icons/**'
+      - 'samples/**'
+      - '*.html'
+      - 'manifest.json'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+# جلوگیری از اجرای هم‌زمان؛ اجراها پشت سر هم انجام می‌شوند
+concurrency:
+  group: update-sw-main
+  cancel-in-progress: false
 
 jobs:
   update-sw:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write     # نیاز به دسترسی نوشتن برای کامیت کردن
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+          persist-credentials: true
 
-      - name: Compute hash of cached files
+      - name: Compute content hash
         id: hash
+        shell: bash
         run: |
+          set -euo pipefail
           # پیدا کردن همه فایل‌های داخل پوشه‌های مشخص و مرتب‌سازی آن‌ها
-          FILES=$(find css js fonts icons samples -type f 2>/dev/null | sort)
-          FILES="$FILES $(ls *.html) manifest.json"
-          
+          FILES=$( { find css js fonts icons samples -type f 2>/dev/null; ls *.html 2>/dev/null; echo manifest.json; } | sort -u )
           # محاسبه هش SHA-256 از محتوای همه فایل‌ها و برداشتن ۱۰ کاراکتر اول
           HASH=$(cat $FILES 2>/dev/null | sha256sum | cut -c1-10)
-          echo "hash=$HASH" >> $GITHUB_OUTPUT
+          echo "hash=$HASH" >> "$GITHUB_OUTPUT"
 
-      - name: Update version in sw.js
+      - name: Update SW version
+        shell: bash
+        env:
+          HASH: ${{ steps.hash.outputs.hash }}
         run: |
-          VERSION="${{ steps.hash.outputs.hash }}"
+          set -euo pipefail
+          VERSION="$HASH"
           # جایگزینی متن pfk-AUTO_VERSION با هش جدید
           sed -i "s/const C = 'pfk-AUTO_VERSION';/const C = 'pfk-${VERSION}';/" sw.js
 
-      - name: Commit and push changes
+      - name: Commit & push sw.js
+        shell: bash
+        env:
+          HASH: ${{ steps.hash.outputs.hash }}
         run: |
+          set -euo pipefail
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add sw.js
+
           # فقط اگر تغییری وجود داشت کامیت کن
-          git diff --quiet && git diff --staged --quiet || git commit -m "Auto-update SW version to ${{ steps.hash.outputs.hash }} [skip ci]"
+          if git diff --staged --quiet; then
+            echo "بدون تغییر، نیازی به commit نیست"
+            exit 0
+          fi
+
+          git commit -m "Auto-update SW version to ${HASH} [skip ci]"
+
+          # همگام‌سازی با آخرین وضعیت remote قبل از push
+          git pull --rebase -X ours origin main
           git push
