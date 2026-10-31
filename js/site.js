@@ -1,4 +1,4 @@
-// ===== بخش جدید: تنظیمات فایربیس برای نمایش نام کاربر =====
+// ===== بخش جدید ۱: تنظیمات و ایمپورت‌های فایربیس =====
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
@@ -13,7 +13,7 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-// ===== پایان بخش جدید =====
+// ===== پایان بخش جدید ۱ =====
 
 
 /* رفتار مشترک همه‌ی صفحه‌ها: منو، تم، نصب PWA، لینک مستقیم تلگرام/اینستاگرام و جلوه‌های زنده */
@@ -137,15 +137,20 @@ if(mq){var h='';S.forEach(function(s){h+='<span><b dir="rtl"'+(s.o?' class="pua"
 })();
 
 
-// ===== بخش جدید: بررسی وضعیت لاگین کاربر و تغییر متن منو =====
+// ===== بخش جدید ۲: بررسی وضعیت لاگین کاربر و تغییر متن منو و فوتر =====
 onAuthStateChanged(auth, (user) => {
-    const accountLink = document.querySelector('a[href="account.html"]');
-    if (accountLink) {
-        if (user) {
-            let name = user.displayName || (user.email ? user.email.split('@')[0] : 'پروفایل');
-            accountLink.innerHTML = `👤 ${name}`;
-            accountLink.style.color = "var(--acf)"; // استفاده از متغیر رنگ سایت شما
-            accountLink.style.fontWeight = "bold";
-        }
+    // querySelectorAll همه لینک‌های حساب کاربری (منو و فوتر) را پیدا می‌کند
+    const accountLinks = document.querySelectorAll('a[href="account.html"]');
+    if (accountLinks.length > 0) {
+        accountLinks.forEach(link => {
+            if (user) {
+                // استخراج نام کاربر
+                let name = user.displayName || (user.email ? user.email.split('@')[0] : 'پروفایل');
+                link.innerHTML = `👤 ${name}`;
+                link.style.color = "var(--acf)"; 
+                link.style.fontWeight = "bold";
+            }
+        });
     }
 });
+// ===== پایان بخش جدید ۲ =====
