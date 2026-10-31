@@ -1,3 +1,21 @@
+// ===== بخش جدید: تنظیمات فایربیس برای نمایش نام کاربر =====
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAQ5mQIYPds-lsqr6jL_k5IvxZZCQ5tzFE",
+  authDomain: "dabireiranidictionary.firebaseapp.com",
+  projectId: "dabireiranidictionary",
+  storageBucket: "dabireiranidictionary.firebasestorage.app",
+  messagingSenderId: "9997034788",
+  appId: "1:9997034788:web:11c55a93be4bc8cb493fb1"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+// ===== پایان بخش جدید =====
+
+
 /* رفتار مشترک همه‌ی صفحه‌ها: منو، تم، نصب PWA، لینک مستقیم تلگرام/اینستاگرام و جلوه‌های زنده */
 (function(){
 var D=document,W=window,reduce=W.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -95,14 +113,12 @@ D.addEventListener('pointerdown',function(e){if(reduce)return;var t=e.target.clo
 var g=$('glyph'),gn=$('gname');
 if(g&&gn){
  var box=g.parentNode,i=0;
- // 👇 تغییرات اعمال شده: متن دیگر به حروف تقسیم نمی‌شود و کل کلمه یکجا نمایش داده می‌شود
  var set=function(s){
    g.textContent=s.t;
    g.dir=s.d;
    gn.textContent=s.n;
-   // ریست کردن انیمیشن برای اجرای مجدد روی کل کلمه
    g.style.animation='none';
-   g.offsetHeight; // ترفند برای فورس کردن ری‌فلو (اجبار مرورگر به شناسایی تغییر)
+   g.offsetHeight;
    g.style.animation='';
  };
  set(S[0]);
@@ -119,3 +135,17 @@ var mq=$('marq');
 if(mq){var h='';S.forEach(function(s){h+='<span><b dir="rtl"'+(s.o?' class="pua"':'')+'>'+s.t+'</b><em>'+s.n+'</em></span>'});
  mq.innerHTML='<div class="mt">'+h+h+'</div>'}
 })();
+
+
+// ===== بخش جدید: بررسی وضعیت لاگین کاربر و تغییر متن منو =====
+onAuthStateChanged(auth, (user) => {
+    const accountLink = document.querySelector('a[href="account.html"]');
+    if (accountLink) {
+        if (user) {
+            let name = user.displayName || (user.email ? user.email.split('@')[0] : 'پروفایل');
+            accountLink.innerHTML = `👤 ${name}`;
+            accountLink.style.color = "var(--acf)"; // استفاده از متغیر رنگ سایت شما
+            accountLink.style.fontWeight = "bold";
+        }
+    }
+});
