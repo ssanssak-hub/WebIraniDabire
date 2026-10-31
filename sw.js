@@ -29,6 +29,7 @@ const FILES = [
   "js/site.js",
   "js/theme-manager.js",
   "js/unicode-scripts.js",
+  "account.html",
   "js/utils.js"
 ];
 
