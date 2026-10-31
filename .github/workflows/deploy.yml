@@ -3,6 +3,10 @@ name: Extract zip and deploy website
 on:
   push:
     branches: [main, master]
+    paths-ignore:
+      - 'sw.js'
+      - 'README.md'
+      - 'sitemap.xml'
   workflow_dispatch:
 
 permissions:
@@ -12,7 +16,7 @@ permissions:
 
 concurrency:
   group: pages
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   build:
@@ -81,6 +85,7 @@ jobs:
       - uses: actions/upload-pages-artifact@v3
         with:
           path: _site
+          retention-days: 1
 
   deploy:
     needs: build
