@@ -4,11 +4,11 @@
   "fonts": [
     {
       "file": "irani_dAbirI.ttf",
-      "family": "lurih_gap",
-      "version": "Version 7.000;November 7, 2026;FontCreator 16.0.0.3068 64-bit",
-      "revision_milli": 7000,
-      "sha256": "a8cf9698453d243ae297a4055467f49cac2a5b1137cd96651e80be15bbe5297c",
-      "size": 3061048
+      "family": "irani_dAbirI",
+      "version": "Version 2.000;November 9, 2026;FontCreator 16.0.0.3068 64-bit",
+      "revision_milli": 2000,
+      "sha256": "0ee5b2a3fd7cce09c273431c8533f656e1593f1caeacc40211eb073eed683868",
+      "size": 3095716
     }
   ]
 }
