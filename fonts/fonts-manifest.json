@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "count": 1,
+  "fonts": [
+    {
+      "file": "irani_dAbirI.ttf",
+      "family": "lurih_gap",
+      "version": "Version 7.000;November 7, 2026;FontCreator 16.0.0.3068 64-bit",
+      "revision_milli": 7000,
+      "sha256": "fbfab0b9886ea10d36d7ca47559e3d542434f757439688033e6ca620cd74cab2",
+      "size": 3062448
+    }
+  ]
+}
